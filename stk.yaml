@@ -1,0 +1,13 @@
+applied_templates:
+- inputs:
+    artifact_id: jemguitar
+    description: Projeto guitarra Ibanez Jem modelo Steve Vai
+    group_id: com.ibanez.jem
+    java_version: '17'
+    nome_projeto: jemIbanezGuitar
+    project_name: Test3
+    spring_boot_version: 3.0.5
+  template_data_path: stack-felipe-soares/java-spring-boot-template
+global_computed_inputs: {}
+global_inputs: {}
+stack_type: app
