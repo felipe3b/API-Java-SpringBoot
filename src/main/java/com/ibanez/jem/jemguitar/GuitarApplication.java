@@ -1,13 +1,13 @@
-package com.ibanez.jem.jemguitar};
+package com.ibanez.jem.jemguitar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class GuitarApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(GuitarApplication.class, args);
 	}
 
 }

@@ -8,6 +8,18 @@ applied_templates:
     project_name: Test3
     spring_boot_version: 3.0.5
   template_data_path: stack-felipe-soares/java-spring-boot-template
+- inputs: {}
+  template_data_path: stack-felipe-soares/rest-api-spring-boot-plugin
+- inputs: {}
+  template_data_path: stack-felipe-soares/rest-api-spring-boot-plugin
+- inputs: {}
+  template_data_path: stack-felipe-soares/rest-api-spring-boot-plugin
+- inputs: {}
+  template_data_path: stack-felipe-soares/rest-api-spring-boot-plugin
+- inputs:
+    artifact_id: jemguitar
+    group_id: com.ibanez.jem
+  template_data_path: stack-felipe-soares/rest-api-spring-boot-plugin
 global_computed_inputs: {}
 global_inputs: {}
 stack_type: app
