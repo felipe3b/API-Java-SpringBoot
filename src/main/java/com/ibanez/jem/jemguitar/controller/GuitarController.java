@@ -14,6 +14,12 @@ public class GuitarController {
         this.guitarService = guitarService;
     }
 
+    @GetMapping("/hello")
+    @ResponseStatus(HttpStatus.OK)
+    public String hello(){
+        return "Hello Guitar Player";
+    }
+
     GuitarService guitarService;
     @PostMapping("/guitars")
     @ResponseStatus(HttpStatus.CREATED)

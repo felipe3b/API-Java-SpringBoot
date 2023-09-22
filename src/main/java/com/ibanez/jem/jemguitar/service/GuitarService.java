@@ -11,7 +11,7 @@ public class GuitarService {
         this.guitarRepository = guitarRepository;
     }
 
-    private GuitarRepository guitarRepository;
+    private final GuitarRepository guitarRepository;
 
     public Guitar criarGuitar(Guitar guitar){
         return guitarRepository.save(guitar);
