@@ -32,4 +32,9 @@ public class GuitarService {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    public List<Guitar> searchGuitars(String query) {
+        // Implemente a lógica de pesquisa aqui usando o H2 Database
+        // Você pode usar o método findByNomeContainingIgnoreCase do GuitarRepository para realizar a pesquisa
+        return guitarRepository.findByNomeContainingIgnoreCase(query);
+
 }

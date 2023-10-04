@@ -21,6 +21,35 @@ Esses quatro componentes trabalham juntos para fornecer uma API RESTful bem proj
 
 ![mvc](./img/mvc.png)
 
+### 1.1 Build
+
+[Referencia](https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application)
+
+Para buildar a aplicação execute o comando abaixo;
+
+```
+mvn install
+```
+
+Ira gerar o arquivo jemguitar-0.0.1.jar na pasta target/ .
+
+Agora podemos executar o comando abaixo para gerar uma imagem Docker;
+
+```
+docker build -t felipe3b/api-java-guitar:latest .
+```
+
+Para verificar a imagem digite o comando abaixo;
+
+```
+docker image ls
+```
+Com a imagem gerada execute o comando abaixo para rodar a imagem em um container;
+
+```
+docker run -p 8080:8080 felipe3b/api-java-guitar:latest
+```
+
 ## 2. Criar plugin utilizando stackspot v1.0.0
 
 ### 2.1 Criar Conta
