@@ -1,0 +1,23 @@
+schema-version: v2
+kind: manifest
+metadata:
+  name: api-java-guitar
+  description: Describe your app explaining its purpose
+  starter: felipe-soares/estudo-stackspot/stack-apis@1.0.0/starter-apis
+  stack: stack-apis@1.0.0
+spec:
+  type: app
+  plugins:
+    - name: estudo-stackspot/java-spring-boot@0.0.3
+      alias: java-spring-boot-1696450055935
+      type: app
+      inputs:
+        nome_projeto: api-java-springboot
+      inputs-envs: {}
+      connections:
+        generates: []
+        requires: []
+      links:
+        generates: []
+  global-inputs: {}
+  global-computed-inputs: {}
