@@ -44,4 +44,10 @@ public class GuitarController {
         return guitarService.buscaGuitarPorId(id);
     }
 
+    @GetMapping("/guitars/search/{nome}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Guitar> buscaGuitarPorNome(@PathVariable(value = "nome") String nome){
+        return guitarService.buscaGuitarPorNome(nome);
+    }
+
 }
