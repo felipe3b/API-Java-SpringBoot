@@ -25,6 +25,22 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+##############################
+## IntelliJ
+##############################
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+##############################
+## Visual Studio Code
+##############################
+.vscode/
+.code-workspace
+
 # General
 .DS_Store*
 .AppleDouble
