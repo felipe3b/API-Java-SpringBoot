@@ -50,6 +50,19 @@ Com a imagem gerada execute o comando abaixo para rodar a imagem em um container
 docker run -p 8080:8080 felipe3b/api-java-guitar:latest
 ```
 
+### 1.1 Mysql
+
+[Referencia](https://hub.docker.com/_/mysql)
+
+Vamos utilizar o Mysql como DB.
+
+Para subir um container rodando o Mysql execute o comand abaixo;
+
+```
+docker run -d -p 3306:3306--name db-01 -e MYSQL_ROOT_PASSWORD=rootpasswd -e MYSQL_DATABASE=db_guitar mysql:8.0
+```
+
+
 ## 2. Criar plugin utilizando stackspot v1.0.0
 
 ### 2.1 Criar Conta
