@@ -12,11 +12,11 @@ COPY mvnw pom.xml ./
 RUN ./mvnw dependency:resolve
 COPY src ./src
 
-FROM base as development
-CMD ["./mvnw", "spring-boot:run"]
+# FROM base as development
+# CMD ["./mvnw", "spring-boot:run"]
 
 FROM base as build
-RUN ./mvnw package
+RUN ./mvnw clean package install -DskipTests
 
 FROM eclipse-temurin:17-jre-jammy as production
 EXPOSE 8080

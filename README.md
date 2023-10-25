@@ -25,7 +25,7 @@ Esses quatro componentes trabalham juntos para fornecer uma API RESTful bem proj
 
 [Referencia](https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application)
 
-[DcockerDocs](https://docs.docker.com/language/java/develop/)
+[DockerDocs](https://docs.docker.com/language/java/develop/)
 
 [Main commands for Spring Boot with Maven](https://gustavopeiretti.com/spring-boot-with-maven-wrapper/)
 
