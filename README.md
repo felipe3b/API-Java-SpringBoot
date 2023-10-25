@@ -21,6 +21,25 @@ Esses quatro componentes trabalham juntos para fornecer uma API RESTful bem proj
 
 ![mvc](./img/mvc.png)
 
+
+### 1.1 Mysql
+
+[Referencia](https://hub.docker.com/_/mysql)
+
+[Configure a DataSource](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#data.sql.datasource)
+
+Vamos utilizar o Mysql como DB.
+
+Para subir um container rodando o Mysql execute o comand abaixo;
+
+```
+docker run -d -p 3306:3306 \
+--name db-01 \
+--network dev \
+-e MYSQL_ROOT_PASSWORD=rootpasswd \
+-e MYSQL_DATABASE=db_guitar mysql:8.0
+```
+
 ### 1.1 Build
 
 [Referencia](https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application)
@@ -29,7 +48,9 @@ Esses quatro componentes trabalham juntos para fornecer uma API RESTful bem proj
 
 [Main commands for Spring Boot with Maven](https://gustavopeiretti.com/spring-boot-with-maven-wrapper/)
 
-Para buildar a aplicação execute o comando abaixo;
+#### 1.1.1 Local
+
+Para buildar a aplicação local execute o comando abaixo;
 
 ```
 mvn install
@@ -41,7 +62,9 @@ ou
 
 Ira gerar o arquivo jemguitar-0.0.1.jar na pasta target/ .
 
-Agora podemos executar o comando abaixo para gerar uma imagem Docker;
+#### 1.1.2 Docker
+
+Para gerar uma imagem docker usamos o Multi-Stage **Dockerfile** (esta na raiz do projeto), execute o comando abaixo;
 
 ```
 docker build -t felipe3b/api-java-guitar:latest .
@@ -55,23 +78,19 @@ docker image ls
 Com a imagem gerada execute o comando abaixo para rodar a imagem em um container;
 
 ```
-docker run -p 8080:8080 felipe3b/api-java-guitar:latest
+docker run --rm -d \
+--name api-java-guitar \
+--network dev \
+-p 8080:8080 felipe3b/api-java-guitar:latest
 ```
 
-### 1.1 Mysql
+#### 1.1.3 Docker Compose
 
-[Referencia](https://hub.docker.com/_/mysql)
-
-[Configure a DataSource](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#data.sql.datasource)
-
-Vamos utilizar o Mysql como DB.
-
-Para subir um container rodando o Mysql execute o comand abaixo;
+Outra alternativa para executar o app é utilizar o **docker-compose.yml** (esta na raiz do projeto), execute o comando abaixo;
 
 ```
-docker run -d -p 3307:3306 --name db-01 -e MYSQL_ROOT_PASSWORD=rootpasswd -e MYSQL_DATABASE=db_guitar mysql:8.0
+docker compose -f docker-compose.yml up --build
 ```
-
 
 ## 2. Criar plugin utilizando stackspot v1.0.0
 
@@ -98,7 +117,4 @@ nome: stack-felipe-soares
 nome: starter-felipe-soares
 
 ### 2.8 Adicionar Plugin no Starter (Portal)
-
-
-
 
