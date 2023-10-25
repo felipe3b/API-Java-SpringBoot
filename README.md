@@ -25,10 +25,18 @@ Esses quatro componentes trabalham juntos para fornecer uma API RESTful bem proj
 
 [Referencia](https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application)
 
+[DcockerDocs](https://docs.docker.com/language/java/develop/)
+
+[Main commands for Spring Boot with Maven](https://gustavopeiretti.com/spring-boot-with-maven-wrapper/)
+
 Para buildar a aplicação execute o comando abaixo;
 
 ```
 mvn install
+```
+ou
+```
+./mvnw spring-boot:run
 ```
 
 Ira gerar o arquivo jemguitar-0.0.1.jar na pasta target/ .
@@ -54,12 +62,14 @@ docker run -p 8080:8080 felipe3b/api-java-guitar:latest
 
 [Referencia](https://hub.docker.com/_/mysql)
 
+[Configure a DataSource](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#data.sql.datasource)
+
 Vamos utilizar o Mysql como DB.
 
 Para subir um container rodando o Mysql execute o comand abaixo;
 
 ```
-docker run -d -p 3306:3306--name db-01 -e MYSQL_ROOT_PASSWORD=rootpasswd -e MYSQL_DATABASE=db_guitar mysql:8.0
+docker run -d -p 3307:3306 --name db-01 -e MYSQL_ROOT_PASSWORD=rootpasswd -e MYSQL_DATABASE=db_guitar mysql:8.0
 ```
 
 
