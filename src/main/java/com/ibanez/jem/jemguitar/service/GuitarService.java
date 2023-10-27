@@ -33,6 +33,6 @@ public class GuitarService {
     }
 
     public List<Guitar> buscaGuitarPorNome(String nome) {
-        return guitarRepository.findByNome(nome);      
+        return guitarRepository.findByNome(nome);
     }
 }
