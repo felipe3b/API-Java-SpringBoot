@@ -1,6 +1,14 @@
 package com.ibanez.jem.jemguitar.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+import java.util.UUID;
+
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "guitar")
@@ -8,8 +16,9 @@ import jakarta.persistence.*;
 public class Guitar {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    private UUID id;
 
     @Column(nullable = false)
     private String nome;
@@ -20,11 +29,11 @@ public class Guitar {
     @Column(nullable = false)
     private String modelo;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -51,6 +60,5 @@ public class Guitar {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-
 
 }
