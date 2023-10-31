@@ -41,9 +41,11 @@ docker run -d -p 3306:3306 \
 --name db-01 \
 --network dev \
 -e MYSQL_ROOT_PASSWORD=rootpasswd \
--e MYSQL_DATABASE=db_guitar mysql:8.0 \
+-e MYSQL_DATABASE=db_guitar \
+-e MYSQL_USER=app_user \
 -e MYSQL_PASSWORD=apppasswd \
--e MYSQL_ROOT_PASSWORD=rootpasswd
+-e MYSQL_ROOT_PASSWORD=rootpasswd \
+mysql:8.0
 ```
 
 ### 1.1 Build
