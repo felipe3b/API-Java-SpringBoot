@@ -56,23 +56,30 @@ mysql:8.0
 
 [Main commands for Spring Boot with Maven](https://gustavopeiretti.com/spring-boot-with-maven-wrapper/)
 
+
 #### 1.1.1 Local
 
-Para buildar a aplicação local execute o comando abaixo;
+Para buildar a aplicação e executar pela sua IDE pode executar um dos comandos abaixo;
 
 ```
-mvn install
+./mvnw clean install
 ```
 ou
 ```
 ./mvnw spring-boot:run
 ```
 
-Ira gerar o arquivo jemguitar-0.0.1.jar na pasta target/ .
+Ira gerar o arquivo jemguitar-0.0.1.jar na pasta **target/** .
 
 #### 1.1.2 Docker
 
-Para gerar uma imagem docker usamos o Multi-Stage **Dockerfile** (esta na raiz do projeto), execute o comando abaixo;
+Para buildar e executar a aplicação utilizando docker usamos o **Multi-Stage Dockerfile** (esta na raiz do projeto), que isra fazer os estagios;
+
+- ***base*** -> Apartir de uma imagem base com o jdk copia os arquivos e diretorios necessarios para o build.
+- ***build*** -> Apartir de estagio **base** executa o build da aplicação.
+- ***production*** -> Apartir do estagio **build** é disponibilizado a execução da aplicação.
+
+Para criar a imagem execute o comando abaixo;
 
 ```
 docker build -t felipe3b/api-java-guitar:latest .
@@ -85,6 +92,8 @@ docker image ls
 ```
 Com a imagem gerada execute o comando abaixo para rodar a imagem em um container;
 
+***OBS: Lembrando que para aplicação subir o DB precisa estar em execução.***
+
 ```
 docker run --rm -d \
 --name api-java-guitar \
@@ -92,37 +101,51 @@ docker run --rm -d \
 -p 8080:8080 felipe3b/api-java-guitar:latest
 ```
 
-#### 1.1.3 Docker Compose
+#### 1.1.3 Observability
 
-Outra alternativa para executar o app é utilizar o **compose.yaml** (esta na raiz do projeto), execute o comando abaixo;
+Para observability vamos usar os seguintes stack/ferramentas;
 
+- [Spring Actuator](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator) para disponibilizar metricas e saude da aplicação.
+
+- [Prometheus](https://prometheus.io/) para coletar as metricas da aplicação.
+
+- [Grafana](https://grafana.com/) para vizualizar em dashboars as metricas coletadas.
+
+- [Java Memory Leaks](https://medium.com/@AlexanderObregon/java-memory-leaks-detection-and-prevention-25d1c09eaebe)
+
+- trabalhando com logs https://youtu.be/tCErZHxaTxg?si=MfmRmQIl8kLbJ-tE , https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.logging
+
+- terminar de assistir https://www.youtube.com/watch?v=K_EI1SxVQ5Q&t=508s e continuar apartir de 14:22 para criar o container do prometheus.
+
+
+Para exucutar o prometheus;
+```
+docker run \
+-d -p 9090:9090 \
+--name prometheus-dev \
+--network dev \
+-v ~/projetos/api-java-guitar/config/prometheus.yml:/etc/prometheus/prometheus.yml \
+prom/prometheus
+```
+#### 1.1.4 Docker Compose
+
+Outra alternativa para executar a aplicação é utilizar o **compose.yaml** (esta na raiz do projeto), dessa maneira os containers do DB, Aplicação e Observability são executados com um unico comando.
+
+Para subir os serviços (containers);
 ```
 docker-compose up -d
 ```
 
+Para visualizar o status dos serviços (containers);
+```
+docker-compose ps
+```
+
+Para parar remover os serviços (containers);
+```
+docker-compose down
+```
+
 ## 2. Criar plugin utilizando stackspot v1.0.0
 
-### 2.1 Criar Conta
-https://docs.stackspot.com/home/stackspot/getting-started#setup-da-conta
-
-### 2.2 Criar Conteudo
-https://docs.stackspot.com/create-use/create-content/getting-started
-
-### 2.3 Criar Studio (Portal)
-nome: studio stackspot
-
-### 2.4 Criar Plugin (Local)
-nome: java-spring-boot
-https://docs.stackspot.com/create-use/tutorials/create-plugin-tutorial
-
-### 2.5 Publicar Plugin (Local)
-https://docs.stackspot.com/create-use/guides/publish-plugin
-
-### 2.6 Criar Stack
-nome: stack-felipe-soares
-
-### 2.7 Criar Starter (Portal)
-nome: starter-felipe-soares
-
-### 2.8 Adicionar Plugin no Starter (Portal)
 

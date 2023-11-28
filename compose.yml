@@ -1,0 +1,73 @@
+version: '3'
+services:
+
+  guitar: ## https://www.baeldung.com/ops/docker-jvm-heap-size , https://spring.io/guides/topicals/spring-boot-docker/
+    depends_on:
+      - db
+    image: felipe3b/api-java-guitar:latest
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+    restart: always
+    container_name: guitar
+    environment:
+      - JAVA_OPTS=-Xmx128m -Xms64m
+    networks:
+      - guitar
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+      start_interval: 5s
+
+  db:
+    image: mysql:8.0
+    container_name: db-guitar
+    environment:
+      - MYSQL_DATABASE=db_guitar
+      - MYSQL_USER=app_user
+      - MYSQL_PASSWORD=apppasswd
+      - MYSQL_ROOT_PASSWORD=rootpasswd
+      - TZ=America/Sao_Paulo
+    networks:
+      - guitar
+    ports:
+      - "3306:3306"
+  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus-guitar
+    restart: unless-stopped
+    volumes:
+      - ~/projetos/api-java-guitar/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - guitar
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana-guitar
+    restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - guitar
+
+networks:
+  guitar:
+    name: guitar
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data: {}
