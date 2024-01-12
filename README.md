@@ -2,10 +2,10 @@
 # Estudos JAVA
 
 - Criar uma API utilizando SpringBoot 
-- Criar um plugin utilizando o stacksopt v1.0.0
+- Utilizar [StackSpot](https://www.stackspot.com/pt/ai-pt) com sua GenAI para ajudar no desenvolvimento.
 
 
-## 1. Criar API utilizando SpingBoot
+## 1. Criar API utilizando SpringBoot
 
 [Spring Boot](https://spring.io/projects/spring-boot)
 
@@ -24,6 +24,54 @@ Vamos criar uma API para cadastro (CRUD) de guitaras utilizando o padrão [MVC](
 Esses quatro componentes trabalham juntos para fornecer uma API RESTful bem projetada e escalável. O controlador lida com as solicitações HTTP, interagindo com o serviço para realizar operações de negócios e recuperar dados do modelo. O serviço usa o repositório para interagir com o banco de dados, e o modelo contém a lógica de negócios e os dados da aplicação. Juntos, esses componentes fornecem uma arquitetura limpa e bem organizada para a sua aplicação.
 
 ![mvc](./img/mvc.png)
+
+### API Guitarra
+
+A Guitarra API é uma aplicação Java que permite aos usuários cadastrar informações sobre guitarras. Com esta API, os usuários podem adicionar detalhes como marca, modelo, ano de fabricação, tipo de madeira, entre outros.
+
+**Endpoints**
+
+**GET /api/list**
+
+Retorna uma lista de todas as guitarras cadastradas.
+
+**POST /api/guitars**
+
+Cria uma nova entrada de guitarra. O corpo da solicitação deve conter um objeto JSON com os detalhes da guitarra.
+
+```
+{
+    "nome": "PIA",
+    "preco": 4000.0,
+    "modelo": "JEM"
+}
+
+```
+
+**GET api/guitars/{id}**
+
+Retorna os detalhes de uma guitarra específica, onde {id} é o ID da guitarra.
+
+**GET api/guitars/search/{nome}**
+
+Retorna os detalhes de uma guitarra específica, onde {nome} é o Nome da guitarra.
+
+**PUT api//guitars/{id}**
+
+Atualiza os detalhes de uma guitarra específica. O corpo da solicitação deve ser semelhante ao da solicitação POST.
+
+```
+{
+    "nome": "PIA",
+    "preco": 4000.0,
+    "modelo": "JEM"
+}
+
+```
+
+**DELETE /api/guitars/{id}**
+
+Remove uma guitarra específica.
 
 
 ### 1.1 Mysql
@@ -56,6 +104,7 @@ mysql:8.0
 
 [Main commands for Spring Boot with Maven](https://gustavopeiretti.com/spring-boot-with-maven-wrapper/)
 
+[memory jvm for containers](https://www.atamanroman.dev/development/2019/09/11/usecontainersupport-to-the-rescue.html)
 
 #### 1.1.1 Local
 
@@ -146,6 +195,5 @@ Para parar remover os serviços (containers);
 docker-compose down
 ```
 
-## 2. Criar plugin utilizando stackspot v1.0.0
 
 
