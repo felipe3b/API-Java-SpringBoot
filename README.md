@@ -156,6 +156,25 @@ docker run --rm -d \
 -p 8080:8080 felipe3b/api-java-guitar:latest
 ```
 
+## Docker Compose
+
+Outra alternativa para executar a aplicação é utilizar o **compose.yaml** (esta na raiz do projeto), dessa maneira os containers do DB, Aplicação e Observability são executados com um unico comando.
+
+Para subir os serviços (containers);
+```
+docker-compose up -d
+```
+
+Para visualizar o status dos serviços (containers);
+```
+docker-compose ps
+```
+
+Para parar remover os serviços (containers);
+```
+docker-compose down
+```
+
 ## Observability
 
 Para observability vamos usar os seguintes stack/ferramentas abaixo;
@@ -174,7 +193,7 @@ Para observability vamos usar os seguintes stack/ferramentas abaixo;
 ***terminar de assistir https://www.youtube.com/watch?v=K_EI1SxVQ5Q&t=508s e continuar apartir de 14:22 para criar o container do prometheus.***
 
 
-Para executar o prometheus;
+Comando que podemos usar para executar o prometheus;
 ```
 docker run \
 -d -p 9090:9090 \
@@ -196,24 +215,7 @@ prom/prometheus
 
 ***<Inserir descrição>***
 
-## Docker Compose
 
-Outra alternativa para executar a aplicação é utilizar o **compose.yaml** (esta na raiz do projeto), dessa maneira os containers do DB, Aplicação e Observability são executados com um unico comando.
-
-Para subir os serviços (containers);
-```
-docker-compose up -d
-```
-
-Para visualizar o status dos serviços (containers);
-```
-docker-compose ps
-```
-
-Para parar remover os serviços (containers);
-```
-docker-compose down
-```
 
 
 
