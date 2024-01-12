@@ -25,7 +25,7 @@ Esses quatro componentes trabalham juntos para fornecer uma API RESTful bem proj
 
 ![mvc](./img/mvc.png)
 
-### API Guitarra
+## API Guitarra
 
 A Guitarra API é uma aplicação Java que permite aos usuários cadastrar informações sobre guitarras. Com esta API, os usuários podem adicionar detalhes como marca, modelo, ano de fabricação, tipo de madeira, entre outros.
 
@@ -74,7 +74,7 @@ Atualiza os detalhes de uma guitarra específica. O corpo da solicitação deve 
 Remove uma guitarra específica.
 
 
-### 1.1 Mysql
+## Mysql
 
 [Referencia](https://hub.docker.com/_/mysql)
 
@@ -82,7 +82,9 @@ Remove uma guitarra específica.
 
 Vamos utilizar o Mysql como DB.
 
-Para subir um container rodando o Mysql execute o comand abaixo;
+Para subir um container rodando o Mysql podemos executar o comando abaixo;
+
+***OBS***: em nosso compose.yml do projeto ja esta incluso o Mysql.
 
 ```
 docker run -d -p 3306:3306 \
@@ -96,7 +98,9 @@ docker run -d -p 3306:3306 \
 mysql:8.0
 ```
 
-### 1.1 Build
+## Build
+
+Nessa seção vou mostrar como podemos fazer o build do projeto;
 
 [Referencia](https://anywhere.epam.com/en/blog/how-to-dockerize-spring-boot-application)
 
@@ -104,9 +108,11 @@ mysql:8.0
 
 [Main commands for Spring Boot with Maven](https://gustavopeiretti.com/spring-boot-with-maven-wrapper/)
 
-[memory jvm for containers](https://www.atamanroman.dev/development/2019/09/11/usecontainersupport-to-the-rescue.html)
+[](https://medium.com/@satanjim/how-we-reduced-the-memory-consumption-of-spring-boot-application-over-40-for-the-development-c8a5813fac23)
 
-#### 1.1.1 Local
+[JVM Memory Settings in a Container Environment](https://www.atamanroman.dev/development/2019/09/11/usecontainersupport-to-the-rescue.html)
+
+### Local
 
 Para buildar a aplicação e executar pela sua IDE pode executar um dos comandos abaixo;
 
@@ -120,7 +126,7 @@ ou
 
 Ira gerar o arquivo jemguitar-0.0.1.jar na pasta **target/** .
 
-#### 1.1.2 Docker
+### Docker
 
 Para buildar e executar a aplicação utilizando docker usamos o **Multi-Stage Dockerfile** (esta na raiz do projeto), que isra fazer os estagios;
 
@@ -150,9 +156,11 @@ docker run --rm -d \
 -p 8080:8080 felipe3b/api-java-guitar:latest
 ```
 
-#### 1.1.3 Observability
+## Observability
 
-Para observability vamos usar os seguintes stack/ferramentas;
+Para observability vamos usar os seguintes stack/ferramentas abaixo;
+
+***OBS***: em nosso compose.yml do projeto ja esta incluso a stack.
 
 - [Spring Actuator](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator) para disponibilizar metricas e saude da aplicação.
 
@@ -160,14 +168,13 @@ Para observability vamos usar os seguintes stack/ferramentas;
 
 - [Grafana](https://grafana.com/) para vizualizar em dashboars as metricas coletadas.
 
-- [Java Memory Leaks](https://medium.com/@AlexanderObregon/java-memory-leaks-detection-and-prevention-25d1c09eaebe)
-
-- trabalhando com logs https://youtu.be/tCErZHxaTxg?si=MfmRmQIl8kLbJ-tE , https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto.logging
-
-- terminar de assistir https://www.youtube.com/watch?v=K_EI1SxVQ5Q&t=508s e continuar apartir de 14:22 para criar o container do prometheus.
+- [AlertManager](https://prometheus.io/docs/alerting/latest/alertmanager/) para enviar notificações ([Video Favricio Veronez](https://www.youtube.com/watch?v=kRISeJk9PeQ)) .
 
 
-Para exucutar o prometheus;
+***terminar de assistir https://www.youtube.com/watch?v=K_EI1SxVQ5Q&t=508s e continuar apartir de 14:22 para criar o container do prometheus.***
+
+
+Para executar o prometheus;
 ```
 docker run \
 -d -p 9090:9090 \
@@ -176,7 +183,20 @@ docker run \
 -v ~/projetos/api-java-guitar/config/prometheus.yml:/etc/prometheus/prometheus.yml \
 prom/prometheus
 ```
-#### 1.1.4 Docker Compose
+
+### Configurando coletas das métricas
+
+***<Inserir descrição>***
+
+### Criando dashboards no grafana
+
+***<Inserir descrição>***
+
+### Configurando alertas e notificação
+
+***<Inserir descrição>***
+
+## Docker Compose
 
 Outra alternativa para executar a aplicação é utilizar o **compose.yaml** (esta na raiz do projeto), dessa maneira os containers do DB, Aplicação e Observability são executados com um unico comando.
 
