@@ -1,0 +1,15 @@
+## Awesome Prometheus alerts https://samber.github.io/awesome-prometheus-alerts/rules.html
+
+groups:
+
+- name: APP
+  rules:
+  - alert: AppDown
+    expr: up != 1
+    for: 30s
+    labels:
+      team: application
+      severity: critical
+    annotations:
+      summary: App down (instance {{ $labels.instance }})
+      description: "My App is down on {{ $labels.instance }}\n VALUE = {{$value}}\n LABELS = {{ $labels }}"
