@@ -1,8 +1,14 @@
 version: '3'
 
+networks:
+  guitar:
+    name: guitar
+    driver: bridge
+
 volumes:
   prometheus-data:
-  grafana-data: {}
+  grafana-data:
+  alertmanager-data:
 
 services:
 
@@ -60,8 +66,14 @@ services:
       - "9090:9090"
 
   alertmanager:
-    image: prom/alertmanager:v0.26.0
+    image: prom/alertmanager:latest
     container_name: alertmanager-guitar
+    volumes:
+      - ./config/alert-manager.yml:/etc/alertmanager/alertmanager.yml
+      - alertmanager-data:/data
+    command:
+      - --config.file=/etc/alertmanager/alertmanager.yml
+      - --log.level=debug
     depends_on:
       - prometheus
     ports:
@@ -81,9 +93,4 @@ services:
       - "3000:3000"
     networks:
       - guitar
-
-networks:
-  guitar:
-    name: guitar
-    driver: bridge
 

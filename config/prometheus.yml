@@ -1,3 +1,5 @@
+## googd config https://github.com/prometheus/prometheus/blob/release-2.49/config/testdata/conf.good.yml
+
 # my global config
 global:
   scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.

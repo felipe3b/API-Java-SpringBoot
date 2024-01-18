@@ -213,6 +213,8 @@ prom/prometheus
 
 ### Configurando alertas e notificação
 
+[Envio Email](https://blog.devops.dev/send-email-alerts-using-prometheus-alert-manager-16df870144a4)
+
 ***<Inserir descrição>***
 
 
