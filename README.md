@@ -205,19 +205,85 @@ prom/prometheus
 
 ### Configurando coletas das métricas
 
-***<Inserir descrição>***
+A configuração da coleta (scrap) das metricas com prometheus é feita pelo arquivo **prometheus.ym** na seção **scrap_configs**.
 
-### Criando dashboards no grafana
+Nesse projeto configuramos o scrap para coletas as metricas expostas pela nossa aplicação e tambem do proprio prometeus.
 
-***<Inserir descrição>***
+Os pacotes abaixo disponibilizam as metricas da aplicação;
+
+- **spring-boot-starter-actuator**
+
+  Expoem o endpoint ***/actuator***
+
+- **micrometer-registry-prometheus**
+  
+  Expoem o endpoint  **/actuator/prometheus** no formato necessario para o prometheus.
+
+Configuração utilizada para o scrap;
+
+```
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: "api-java-guitar-job"
+    metrics_path: "/actuator/prometheus"
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.   
+
+    static_configs:
+      - targets: ["guitar:8080"]
+        labels:
+          application: "api-java-guitar"
+```
 
 ### Configurando alertas e notificação
 
 [Envio Email](https://blog.devops.dev/send-email-alerts-using-prometheus-alert-manager-16df870144a4)
 
+A configuração dos alertas é feita pelo arquivo **alert-rules.rules**, nele definimos as regras para os alertas, no arquivo **prometheus.yaml** na seção **rules_files** definimos os arquivos com as regras (nesse caso alert-rules.rules).
+
+O envio dos alertas para o AlertManager é feito na seção **alerting** do arquivo **prometheus.yml**.
+
+A configuração de envio das notificações é feito no arquivo **alertmanager.yml**, o AlertManager suporta o envio para algumas ferramentas como Discord, Microsoft Teams e PagerDuty. A lista completa pode ser encontrada na documetação [aqui](https://prometheus.io/docs/alerting/latest/configuration/#receiver-integration-settings) .
+
+Nesse projeto usamos a notificação por e-mail, caso não tenha um servidor SMTP disponivel para utilizar voce pode usar seu e-mail particular do google, basta criar uma [senha para app](https://support.google.com/accounts/answer/185833?hl=pt-BR) em sua conta. 
+
+Segue abaixo a configuração;
+
+```
+## Example Alertmangar config  alertmanager.yml file https://github.com/prometheus/alertmanager/blob/main/doc/examples/simple.yml
+## DOC https://prometheus.io/docs/alerting/latest/configuration/
+
+global:
+ 
+route:
+  receiver: GmailNotifications
+  group_by: ['alertname']
+  group_wait: 15s
+  group_interval: 15s
+  repeat_interval: 1m
+ 
+receivers:
+  - name: GmailNotifications
+    email_configs:
+      - to: <email-para-envio-dos-alertas>
+        from: alert-prometheus@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: seuemail@gmail.com
+        auth_identity: seuemail@gmail.com
+        auth_password: <inserir senha para app>
+        send_resolved: true
+        headers:
+          subject: 'Prometheus Mail Alerts'
+```
+
+### Criando dashboards no grafana
+
 ***<Inserir descrição>***
-
-
-
-
-

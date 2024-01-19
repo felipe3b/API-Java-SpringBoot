@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 networks:
   guitar:
@@ -36,7 +36,6 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-      start_interval: 5s
 
   db:
     image: mysql:8.0
@@ -66,7 +65,7 @@ services:
       - "9090:9090"
 
   alertmanager:
-    image: prom/alertmanager:latest
+    image: prom/alertmanager:v0.26.0
     container_name: alertmanager-guitar
     volumes:
       - ./config/alert-manager.yml:/etc/alertmanager/alertmanager.yml
