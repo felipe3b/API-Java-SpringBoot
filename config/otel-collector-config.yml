@@ -1,0 +1,27 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  jaeger:
+    # Endpoint do Jaeger. Ajuste conforme necessário.
+    endpoint: http://jaeger:14250
+    # Descomente e ajuste se precisar de autenticação TLS
+    tls:
+       insecure: true
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [jaeger]  # Adicione 'jaeger' à lista de exporters
+#    metrics:
+#      receivers: [otlp]
+#      exporters: []
+#    logs:
+#      receivers: [otlp]
+#      exporters: []

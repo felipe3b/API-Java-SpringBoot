@@ -1,15 +1,23 @@
-## Awesome Prometheus alerts https://samber.github.io/awesome-prometheus-alerts/rules.html
+# This YAML configuration is for setting up alerting rules for Prometheus monitoring.
+# It defines a single alert group named 'APP' with one alert rule 'AppDown'.
 
 groups:
-
-- name: APP
-  rules:
-  - alert: AppDown
-    expr: up != 1
-    for: 30s
-    labels:
-      team: application
-      severity: critical
-    annotations:
-      summary: App down (instance {{ $labels.instance }})
-      description: "My App is down on {{ $labels.instance }}\n VALUE = {{$value}}\n LABELS = {{ $labels }}"
+  # Group of alert rules for application-related issues.
+  - name: APP
+    rules:
+      # Alert for when an application instance is down.
+      - alert: AppDown
+        # Expression to evaluate whether an application instance is down.
+        # The 'up' metric is a Prometheus metric that shows whether a target is up or down (1 for up, 0 for down).
+        expr: up != 1
+        # Duration the condition must be true before triggering the alert.
+        for: 30s
+        # Labels to attach to the alert for routing and categorization.
+        labels:
+          team: application
+          severity: critical
+        # Annotations to include additional information in the alert.
+        annotations:
+          summary: "App down (instance {{ .instance }})"
+          # Description provides more details about the alert, including the instance affected and current value.
+          description: "My App is down on {{ .instance }}"

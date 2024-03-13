@@ -17,6 +17,7 @@ FROM eclipse-temurin:17-jre-alpine as layers
 WORKDIR /layer
 COPY --from=build /app/target/jemguitar-*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v2.1.0/opentelemetry-javaagent.jar ./opentelemetry-javaagent.jar
 
 # Final stage: create the production image
 FROM eclipse-temurin:17-jre-alpine as production
@@ -29,6 +30,7 @@ COPY --from=layers /layer/dependencies/ ./
 COPY --from=layers /layer/spring-boot-loader/ ./
 COPY --from=layers /layer/snapshot-dependencies/ ./
 COPY --from=layers /layer/application/ ./
+COPY --from=layers /layer/opentelemetry-javaagent.jar ./opentelemetry-javaagent.jar
 RUN chown -R appuser:appuser /opt/app
 USER appuser
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS org.springframework.boot.loader.JarLauncher"]
